@@ -84,4 +84,7 @@
 
 Процесс создания заказа менеджером ИМ (н.п. нсли клиент сам позвонил для оформления заказа) ни как не отличается от процесса создания заказа покупателем, за исключением того, что менеджер всегда должен делать заказы от НЕзарегистрированного покупатель. Таким образом заказы всегда будут создаваться от имени покупателя, идентифицированные по номеру телефона по номеру телефона. 
 
-# !!! Диаграммы состояний
+## Диаграммы состояний
+![Image description](https://github.com/VadimShtukan/per.ua.ms/blob/master/documentation/img/create_order_1.png)  
+![Image description](https://github.com/VadimShtukan/per.ua.ms/blob/master/documentation/img/create_order_2.png)  
+![Image description](https://github.com/VadimShtukan/per.ua.ms/blob/master/documentation/img/create_order_3.png)  
