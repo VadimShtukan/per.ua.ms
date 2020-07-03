@@ -1,0 +1,42 @@
+@startuml
+title Оформление заказа (оплата на карту)
+skinparam maxmessagesize 150
+
+actor Покупатель as User
+participant "FrontEnd" as FrontEnd
+participant "Backend" as Backend
+actor Менеджер as Manager
+actor Бухгалтер as Buh
+actor Кладовщик as StockMan
+
+User -> FrontEnd: Выбор товара
+User -> FrontEnd: Помещение товара в корзину
+FrontEnd -> Backend: Создание заказа
+Backend --> FrontEnd: Информация о заказе (номер заказа)
+FrontEnd --> User: Спасибо за заказ, Ваш номер заказа ..., с Вами свяжутся для уточнения деталей
+
+==  ==
+Backend -> Manager: Информировании о новом заказе
+Manager -> User: Уточнение деталей заказа.
+User --> Manager:
+Manager -> Backend: Изменить статус на "Ожидается оплата"
+Backend -> User: Передача реквизитов для оплаты.
+
+==  ==
+User -> User: Оплата заказа
+User -> Backend: Информирование об оплате заказа
+Backend -> Buh: Сверка оплаты
+Buh -> Backend: Изменить статус на "Ожидается отправка"
+Backend -> Backend: Регистрация в РРО
+Backend -> User: Информировании об изменении статуса заказа.
+
+==  ==
+Backend -> StockMan: Информировании о новом заказе для отправки
+StockMan -> Backend: Создание чека, создание декларации
+Backend --> StockMan:
+StockMan -> StockMan: Отправка заказа
+StockMan -> Backend: Изменить статус заказа на "Заказ отправлен"
+Backend -> User: Информировании об изменении статуса заказа.
+
+
+@enduml

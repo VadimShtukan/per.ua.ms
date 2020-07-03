@@ -1,0 +1,39 @@
+@startuml
+title Оформление заказа (оплата кредитной картой Visa/Mastercard)
+skinparam maxmessagesize 150
+
+actor Покупатель as User
+participant "FrontEnd" as FrontEnd
+participant "Backend" as Backend
+participant "Интернет эквайренг" as PayService
+actor Менеджер as Manager
+actor Кладовщик as StockMan
+
+User -> FrontEnd: Выбор товара
+User -> FrontEnd: Помещение товара в корзину
+FrontEnd -> Backend: Создание заказа
+Backend --> FrontEnd: Информация о заказе (номер заказа и ссылка на оплату кредитной картой)
+FrontEnd --> User: Спасибо за заказ, Ваш номер заказа ..., для оплаты заказа перейдите по ссылке - ...
+User -> PayService: Оплата заказа.
+PayService -> Backend: Подтверждение оплаты
+Backend -> Backend: Регистрация в РРО
+Backend -> Backend: Поменять статус заказа на "Ожидается отправка"
+Backend -> User: Информировании об удачной оплате и изменении статуса заказа.
+
+==  ==
+Backend -> Manager: Информировании о новом заказе
+Manager -> User: Уточнение деталей заказа.
+User --> Manager:
+Manager -> Backend: Изменить статус на "Ожидается оплата"
+Backend -> User: Передача реквизитов для оплаты.
+
+==  ==
+Backend -> StockMan: Информировании о новом заказе для отправки
+StockMan -> Backend: Создание чека, создание декларации
+Backend --> StockMan:
+StockMan -> StockMan: Отправка заказа
+StockMan -> Backend: Изменить статус заказа на "Заказ отправлен"
+Backend -> User: Информировании об изменении статуса заказа.
+
+
+@enduml
