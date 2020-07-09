@@ -1,0 +1,46 @@
+@startuml
+() "Broker(Notification )" as BrokerNotification
+[User service] ..> BrokerNotification
+BrokerNotification .> [Notification service]
+
+[Cart service] --> [Discount service]
+[Cart service] -> [Product service]
+
+() "Broker(- descount)" as BrokerMinusDiscount
+[Order service] .> BrokerMinusDiscount
+BrokerMinusDiscount .> [Discount service]
+
+() "Broker(delete cart)" as BrokerDeleteCart
+[Order service] .> BrokerDeleteCart
+BrokerDeleteCart .>[Cart service]
+
+[Order service] .> BrokerNotification
+
+[Order service] --> [Product service]
+
+() "Broker(Payment)" as BrokerPayment
+[Order service]  ...> BrokerPayment
+BrokerPayment ..> [Payment service]
+
+[Payment service] --> [Провайдер приема оплат]
+[Провайдер приема оплат] -> [Payment service]
+
+
+() "Broker(Product)" as BrokerProduct
+[Order service]  ...> BrokerProduct
+BrokerProduct ..> [Product Service]
+
+() "Broker(Bills)" as BrokerBills
+[Order service]  ...> BrokerBills
+BrokerBills ..> [Bills service]
+
+() "Broker(Delivery)" as BrokerDelivery
+[Order service]  ...> BrokerDelivery
+BrokerDelivery  ..> [Delivery service]
+
+() "Broker(Order)" as BrokerOrder
+[Payment service]  .> BrokerOrder
+BrokerOrder ..> [Order service]
+[Payment service]  ...> BrokerNotification
+[Payment service]  ...> BrokerBills
+@enduml

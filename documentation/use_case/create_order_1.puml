@@ -21,10 +21,11 @@ User --> Manager:
 Manager -> Backend: Изменить статус на "Ожидается отправка (Оплата при получении)"
 Backend -> User: Информировании об изменении статуса заказа.
 ==  ==
+Backend -> Backend: Создание декларации службы доставки
 Backend -> StockMan: Информировании о новом заказе для отправки
-StockMan -> Backend: Создание чека, создание декларации
+StockMan -> Backend: Создание чека.
 Backend --> StockMan:
-StockMan -> StockMan: Отправка заказа
+StockMan -> StockMan: Подготовка и отправка заказа
 StockMan -> Backend: Изменить статус заказа на "Заказ отправлен"
 Backend -> User: Информировании об изменении статуса заказа.
 
